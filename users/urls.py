@@ -6,9 +6,11 @@ from django.urls import path
 from .views import NotificationList
 from .views import BookResourcesList, BookResourcesDetail
 from .views import LoginView
+from .views import RegisterView
 
 urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
     path('anotifications/', NotificationList.as_view(), name='notification-list'),
     path('anotifications/<int:pk>/', NotificationList.as_view(), name='notification-detail'),
     path('physica/', PhysicsList.as_view(), name='physics-list'),

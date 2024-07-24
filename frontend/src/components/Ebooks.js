@@ -17,7 +17,7 @@ const BookResourcesList = () => {
 
     return (
         <div>
-            <h1>Ebooks List</h1>
+            <h1>Ebooks List!!</h1>
             <ul>
                 {bookResourcesData.map(bookResources => (
                     <li key={bookResources.ebooksID}>

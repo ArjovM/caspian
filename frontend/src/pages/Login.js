@@ -1,41 +1,93 @@
+// src/components/RegisterLogin.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import { register, login } from './auth';
 
-const LoginForm = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [token, setToken] = useState(null);
-    const [error, setError] = useState('');
+const RegisterLogin = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
 
-    const handleLogin = async () => {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/login/', {
-                username: 'your_username',
-                password: 'your_password'
-            });
-            console.log('Token:', response.data.token);
-        } catch (err) {
-            console.error('Error:', err.response.data);
-        }
-    };
+  const handleRegister = async () => {
+    try {
+      const response = await register(username, password, role);
+      console.log('Registration successful:', response.data);
+    } catch (error) {
+      console.error('Error registering:', error.response.data);
+    }
+  };
 
-    return (
-        <div>
-            <form onSubmit={handleLogin}>
-                <div>
-                    <label>Username</label>
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
-                <button type="submit">Login</button>
-            </form>
-            {token && <div>Token: {token}</div>}
-            {error && <div>{error}</div>}
+  const handleLogin = async () => {
+    try {
+        console.log('reached here ----"jlopipi:::::::::::::::::::::::::::::::::');
+
+      const response = await login(username, password);
+      if (response && response.data) {
+        console.log('Login successful:::::::::::::::::::::::::::::::::');
+
+        console.log('Login successful:::::::::::::::::::::::::::::::::', response.data);
+
+        console.log('Login successful:::::::::::::::::::::::::::::::::');
+
+      } else {
+        console.error('Unexpected response:::::::::::::::::::::::::::::;', response);
+      }
+    } catch (error) {
+      console.error('Error logging in:', error.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <div className="form-container">
+        <h1>Register</h1>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
-    );
+        <div className="form-group">
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Role"
+            onChange={(e) => setRole(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <button onClick={handleRegister}>Register</button>
+        </div>
+      </div>
+
+      <div className="form-container">
+        <h1>Login</h1>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default LoginForm;
+export default RegisterLogin;
