@@ -1,0 +1,58 @@
+FYP
+unf
+class(class no.(pk),class name, teacher no, teacher name, {student(student no, student name,date of birth, gender,attendence percentage,bill record, academic record)}  
+
+1nf
+class(class no.(pk),class name, teacher no, teacher name)
+student(student no(pk)**, student name,date of birth, class no.(fk)**,gender,attendence percentage,bill record, academic record)
+
+2nf
+class(class no.(pk),class name, teacher no, teacher name)
+student(student no(pk)**, student name,date of birth, class no.(fk)**,gender,
+attendance(class no.(fk)**,attendence percentage, student no(fk)**),
+bill (bill no(pk), student no(fk)**, bill record,)
+academics(class no.(fk)**, academic record, student no(fk)**)
+
+3nf
+class(class no.(pk),class name, teacher no(fk))
+teacher( teacher no (pk), teacher name)
+student(student no(pk)**, student name,date of birth, class no.(fk)**,gender)
+attendance(class no.(fk)**,attendence percentage, student no(fk)**),
+bill (bill no(pk), student no(fk)**, bill record,)
+academics(class no.(fk)**, academic record, student no(fk)**)
+
+-----------------------------------------------------------------------------------------------------------------
+unf
+course(course no.(pk),course name,{subject( subject no., subject name,{teacher(teacher no, teacher name),{student(student no, student name,date of birth, gender,bill record)}}})
+
+1nf
+course(course no.(pk),course name)
+subject( subject no.(pk), subject name,course no.(fk))
+teacher(teacher no(pk), teacher name,course no.(fk),subject no.(fk),)
+student(student no(pk), student name,date of birth, gender,fee bill record, academic record,course no.(fk),subject no.(fk),teacher no.(fk))
+
+2nf
+course(course no.(pk),course name)
+
+subject( subject no.(pk), subject name)
+subject-course(course no(fk),subject no(fk))
+
+teacher(teacher no(pk), teacher name)
+teacher-course-subject(teacher no.(fk),course no.(fk),subject no.(fk))
+
+student id->student name,date of birth, gender => partial dependency
+student id, teacher no->
+student id, course no, subject no->academic report=> full fuctional
+student id, course no->bill record=> full fuctional
+student(student no(pk)**, student name,date of birth, course no.(fk)**,gender)
+student-teacher(student no,teacher no.)
+bill (bill no(pk), student no(fk)**, fee,Course no.(fk)**)
+academics(subject no.(fk)**, academic record,stubject no.(fk)**, student no(fk)**)
+
+3nf
+course(course no.(pk),course name,teacher no (fk), subject no.(fk))
+teacher( teacher no (pk), teacher name)
+subject( subject no.(pk), subject name)
+student(student no(pk)**, student name,date of birth, course no.(fk)**,gender)
+bill (bill no(pk), student no(fk)**, bill record,course no.(pk),)
+academics(class no.(fk)**, academic record, student no(fk)**)
