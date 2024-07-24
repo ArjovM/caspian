@@ -3,7 +3,7 @@ from rest_framework import serializers
 from .models import Subject
 from .models import Physics
 from .models import Notifications
-from .models import Books
+from .models import BookResources
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,9 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['UserID', 'Username', 'Role', 'Password']
 
-class BooksSerializer(serializers.ModelSerializer):
+class BookResourcesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Books
-        fields = ['booksID', 'authors', 'file', 'teacherName']
+        model = BookResources
+        fields = ['ebooksID', 'title', 'author', 'file', 'teacherName']
 
 

@@ -1,14 +1,14 @@
-// src/components/EbooksList.js
+// src/components/BookResourcesList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const EbooksList = () => {
-    const [ebooksData, setEbooksData] = useState([]);
+const BookResourcesList = () => {
+    const [bookResourcesData, setBookResourcesData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/ebooks/')
+        axios.get('http://localhost:8000/bookresources/')
             .then(response => {
-                setEbooksData(response.data);
+                setBookResourcesData(response.data);
             })
             .catch(error => {
                 console.error('There was an error fetching the data!', error);
@@ -19,11 +19,12 @@ const EbooksList = () => {
         <div>
             <h1>Ebooks List</h1>
             <ul>
-                {ebooksData.map(item => (
-                    <li key={item.ebooksID}>
-                        <p>Author: {item.Authors}</p>
-                        <p>Teacher: {item.TeacherName}</p>
-                        <a href={item.File}>Download File</a>
+                {bookResourcesData.map(bookResources => (
+                    <li key={bookResources.ebooksID}>
+                        <h2>{bookResources.title}</h2>
+                        <p>Author: {bookResources.author}</p>
+                        <p>Teacher: {bookResources.teacherName}</p>
+                        <a href={bookResources.file}>Download File</a>
                     </li>
                 ))}
             </ul>
@@ -31,4 +32,4 @@ const EbooksList = () => {
     );
 };
 
-export default EbooksList;
+export default BookResourcesList;

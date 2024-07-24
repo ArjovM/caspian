@@ -54,10 +54,12 @@ class Notifications(models.Model):
     Description = models.TextField()
     TeacherID = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
-class Books(models.Model):
-    booksID = models.AutoField(primary_key=True)
+class BookResources(models.Model):
+    ebooksID = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     file = models.FileField(upload_to='files/')
     teacherName = models.CharField(max_length=255)
 
 
+    

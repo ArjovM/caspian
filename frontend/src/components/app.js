@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import Notifications from "./NotificationPage";
-import Ebookslist from "./Ebooks";
 import Reports from "./ReportPage";
 import HomePage from "./HomePage";
 import {
@@ -12,8 +11,9 @@ import {
 } from "react-router-dom";
 import '../../static/css/index.css';
 import PhysicsList from "../pages/Physics";
-import SignIn from "../pages/SingIn";
-import EbooksList from "./Ebooks";
+// import SignIn from "../pages/SingIn";
+import BookResources from "./Ebooks";
+import LoginForm from "../pages/Login";
 
 
 
@@ -26,7 +26,7 @@ export default class App extends Component {
     return (
       <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<SignIn/>} />
+        <Route path="/login" element={<LoginForm/>} />
         <Route path="*" element={<>
           <div className="navbar">
         <div className="app-logo">Caspian Classroom</div>
@@ -37,7 +37,7 @@ export default class App extends Component {
           <NavLink className="nav-link" to="/notifications">
             Noticeboard
           </NavLink>
-          <NavLink className="nav-link" to="/ebooks">
+          <NavLink className="nav-link" to="/bookresources">
             Ebooks
           </NavLink>
           <NavLink className="nav-link" to="/reportpage">
@@ -52,9 +52,11 @@ export default class App extends Component {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/notifications" element={<Notifications />} />
-        <Route path="/ebooks" element={<EbooksList />} />
+        <Route path="/bookresources" element={<BookResources />} />
         <Route path="/reportpage" element={<Reports />} />
         <Route path="/subject/1" element={<PhysicsList />} />
+        <Route path="/login" element={<LoginForm />} />
+
 
       </Routes>
         </>} />

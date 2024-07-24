@@ -4,7 +4,7 @@ from .views import index
 urlpatterns = [
     path('', index),
     path('notifications', index),
-    path('ebooks', index),
+    path('bookresources', index),
     path('reportpage', index)
     
 ]

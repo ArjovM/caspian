@@ -8,8 +8,8 @@ from .models import Physics
 from .serializers import PhysicsSerializer
 from .models import Notifications
 from .serializers import NotificationSerializer
-from .models import Books
-from .serializers import BooksSerializer
+from .models import BookResources
+from .serializers import BookResourcesSerializer
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -20,13 +20,14 @@ class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
-        return Response({'error': 'Invalid Credentials'}, status=400)
+            if request.method == 'POST':
+                username = request.data.get('username')
+                password = request.data.get('password')
+                user = authenticate(username=username, password=password)
+                if user:
+                    token, created = Token.objects.get_or_create(user=user)
+                    return Response({'token': token.key})
+            return Response({'error': 'Invalid Credentials'}, status=400)
 
 
 class NotificationList(generics.ListCreateAPIView):
@@ -40,7 +41,6 @@ class PhysicsList(generics.ListCreateAPIView):
 class PhysicsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Physics.objects.all()
     serializer_class = PhysicsSerializer
-
 
 class SubjectList(generics.ListCreateAPIView):
     queryset = Subject.objects.all()
@@ -64,12 +64,11 @@ class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-class BooksList(generics.ListCreateAPIView):
-    queryset = Books.objects.all()
-    serializer_class = BooksSerializer
+class BookResourcesList(generics.ListCreateAPIView):
+    queryset = BookResources.objects.all()
+    serializer_class = BookResourcesSerializer
 
-
-class BooksDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Books.objects.all()
-    serializer_class = BooksSerializer
+class BookResourcesDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = BookResources.objects.all()
+    serializer_class = BookResourcesSerializer
 
