@@ -2,21 +2,33 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const PhysicsList = () => {
-    const [physicsData, setPhysicsData] = useState([]);
+    const [resourceData, setResourceData] = useState([]);
+    const [subjectData, setSubjectData] = useState([]);
+
 
     useEffect(() => {
-        axios.get('/physica/')  // Adjusted endpoint
+        axios.get('/subject/')  // Adjusted endpoint
             .then(response => {
-                setPhysicsData(response.data);  // Set the fetched data to state
+                setResourceData(response.data);  // Set the fetched data to state
             })
             .catch(error => {
-                console.error('There was an error fetching the physics data!', error);
+                console.error('There was an error fetching the resource data!', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get('/subjecta/')  // Adjusted endpoint
+            .then(response => {
+                setSubjectData(response.data);  // Set the fetched data to state
+            })
+            .catch(error => {
+                console.error('There was an error fetching the data!', error);
             });
     }, []);
 
     return (
         <div className="table-container">
-            <h1>Physics List</h1>
+            <h1>Study Resources</h1>
             <table className="physics-table">
                 <thead>
                     <tr>
@@ -26,11 +38,11 @@ const PhysicsList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {physicsData.map(physics => (
-                        <tr key={physics.PhysicsID}>
+                    {resourceData.filter((data)=>data.subjectID === 1).map(resource => (
+                        <tr key={resource.studyResourceId}>
                             
-                            <td>{physics.Description}</td>
-                            <td><a href={physics.FileField}>Download</a></td>
+                            <td>{resource.resourceInfo}</td>
+                            <td><a href={resource.resource}>Download</a></td>
                         
                         </tr>
                     ))}

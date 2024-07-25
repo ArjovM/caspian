@@ -1,7 +1,7 @@
 from .models import User
 from rest_framework import serializers
 from .models import Subject
-from .models import Physics
+from .models import StudyResource
 from .models import Notifications
 from .models import BookResources
 from django.contrib.auth import authenticate
@@ -19,25 +19,25 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
 
-class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField()
+# class LoginSerializer(serializers.Serializer):
+#     username = serializers.CharField()
+#     password = serializers.CharField()
 
-    def validate(self, data):
-        user = authenticate(**data)
-        if user and user.is_active:
-            return user
-        raise serializers.ValidationError("Invalid credentials")
+#     def validate(self, data):
+#         user = authenticate(**data)
+#         if user and user.is_active:
+#             return user
+#         raise serializers.ValidationError("Invalid credentials")
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notifications
         fields = ['NotificationID', 'Description', 'TeacherID']
 
-class PhysicsSerializer(serializers.ModelSerializer):
+class StudyResourceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Physics
-        fields = ['PhysicsID', 'Description', 'File', 'SubjectID']
+        model = StudyResource
+        fields = ['studyResourceId', 'resourceInfo', 'resource', 'subjectID']
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:

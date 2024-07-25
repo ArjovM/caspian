@@ -43,11 +43,11 @@ class Subject(models.Model):
     SubjectName = models.CharField(max_length=100, unique=True)
     GradeID = models.ForeignKey(Grade, on_delete=models.CASCADE)
 
-class Physics(models.Model):
-    PhysicsID = models.AutoField(primary_key=True)
-    SubjectID = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    Description = models.CharField(max_length=100)
-    File = models.FileField(upload_to='physics/')
+class StudyResource(models.Model):
+    studyResourceId = models.AutoField(primary_key=True)
+    subjectID = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    resourceInfo = models.CharField(max_length=255)
+    resource = models.FileField(upload_to='course_resources/')
 
 class Notifications(models.Model):
     NotificationID = models.AutoField(primary_key=True)
@@ -60,6 +60,7 @@ class BookResources(models.Model):
     author = models.CharField(max_length=255)
     file = models.FileField(upload_to='files/')
     teacherName = models.CharField(max_length=255)
+
 
 
     
