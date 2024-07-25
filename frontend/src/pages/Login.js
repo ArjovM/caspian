@@ -27,19 +27,18 @@ const LoginForm = () => {
   };
 
   useEffect(() => {
-    // Update the logged-in status
     setLoggedIn(isLoggedIn());
   }, []);
 
   return (
-    <div>
+    <div className="login-form-container">
       {loggedIn ? (
-        <div>
+        <div className="welcome-container">
           <h1>Welcome!</h1>
-          <button onClick={handleLogout}>Logout</button>
+          <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
-        <div>
+        <div className="login-form">
           <h1>Login</h1>
           <form onSubmit={handleLogin}>
             <input
@@ -47,16 +46,18 @@ const LoginForm = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              className="input-field"
             />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="input-field"
             />
-            <button type="submit">Login</button>
+            <button type="submit" className="login-button">Login</button>
           </form>
-          {error && <p>{error}</p>}
+          {error && <p className="error-message">{error}</p>}
         </div>
       )}
     </div>

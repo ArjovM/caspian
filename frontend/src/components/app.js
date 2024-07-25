@@ -36,7 +36,7 @@ export default class App extends Component {
               Reportpage
             </NavLink>
           </div>
-
+          <div>
           {isLoggedIn() ? (
             <button onClick={logout}>Logout</button>
           ) : (
@@ -44,6 +44,7 @@ export default class App extends Component {
               Login
             </NavLink>
           )}
+          </div>
         </div>
         <Routes>
           <Route path="/login" element={<LoginForm />} />
