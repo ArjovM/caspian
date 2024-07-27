@@ -11,6 +11,7 @@ import LoginForm from "../pages/Login";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { isLoggedIn, logout } from "../pages/auth";
 import handleLogout from "../pages/Login";
+import RegisterForm from "../pages/Register";
 
 export default class App extends Component {
   constructor(props) {
@@ -37,17 +38,12 @@ export default class App extends Component {
             </NavLink>
           </div>
           <div>
-          {isLoggedIn() ? (
-            <button onClick={logout}>Logout</button>
-          ) : (
-            <NavLink className="nav-link" to="/login">
-              Login
-            </NavLink>
-          )}
           </div>
         </div>
         <Routes>
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+
           <Route path="/" element={<ProtectedRoute element={<HomePage />} />} />
           <Route path="/notifications" element={<ProtectedRoute element={<Notifications />} />} />
           <Route path="/bookresources" element={<ProtectedRoute element={<BookResources />} />} />

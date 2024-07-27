@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login, logout, isLoggedIn } from './auth';
+import {  logout, isLoggedIn } from './auth';
+import axios from 'axios';
+
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -8,7 +10,23 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
   const [loggedIn, setLoggedIn] = useState(isLoggedIn());
   const navigate = useNavigate();
+  const API_URL = 'http://localhost:8000/';
 
+  const login = async (username, password) => {
+    try {
+        const response = await axios.post(`${API_URL}login/`, { username, password });
+        if (response.data.access) {
+            localStorage.setItem('access_token', response.data.access);
+            localStorage.setItem('refresh_token', response.data.refresh);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+
+        }
+        return response.data;
+    } catch (error) {
+        console.error('Login error:', error.response ? error.response.data : error);
+        throw error;
+    }
+};
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -34,7 +52,6 @@ const LoginForm = () => {
     <div className="login-form-container">
       {loggedIn ? (
         <div className="welcome-container">
-          <h1>Welcome!</h1>
           <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       ) : (

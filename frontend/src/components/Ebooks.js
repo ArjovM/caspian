@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const BookResourcesList = () => {
     const [bookResourcesData, setBookResourcesData] = useState([]);
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
 
     useEffect(() => {
         axios.get('http://localhost:8000/bookresources/')
@@ -16,7 +18,7 @@ const BookResourcesList = () => {
 
     return (
         <div className="book-resources-container">
-            <h1>Ebooks List</h1>
+            <h1>Ebooks List</h1>{user && (user.user_type === "2" || user.user_type === "1") && <div><button>Add Ebooks</button></div>}
             <table className="book-resources-table">
                 <thead>
                     <tr>
