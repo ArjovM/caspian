@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from.models import Admin, Student, Teacher, CustomUser
 from rest_framework import generics
-from .serializers import UserSerializer
 from .models import Subject
 from .serializers import SubjectSerializer
 from .models import StudyResource
@@ -13,7 +12,6 @@ from .serializers import BookResourcesSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated

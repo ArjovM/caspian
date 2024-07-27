@@ -1,5 +1,4 @@
 from django.urls import path
-# from .views import UserList, UserDetail
 from .views import SubjectList, SubjectDetail
 from .views import StudyResourceList, StudyResourceDetail
 from django.urls import path

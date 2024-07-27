@@ -7,12 +7,6 @@ class CustomUser(AbstractUser):
     user_type_data=((1, "Admin"),(2,"Teacher"),(3,"Student"))
     user_type= models.CharField(default=1, choices=user_type_data, max_length=20)
 
-class User(models.Model):
-    UserID = models.AutoField(primary_key=True)
-    Username = models.CharField(max_length=50, unique=True)
-    Password = models.CharField(max_length=50)
-    Role = models.CharField(max_length=10)
-
 class Admin(models.Model):
     id = models.AutoField(primary_key=True)
     admin = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
