@@ -1,0 +1,49 @@
+unf
+-identification of repeating groups
+-Assign primary key
+Course(Course_code(PK), Course_name,Tutor_ID, Tutor_name{Students(Student_no, student_name, Date_of_birth, Gender, Last_attendance_date})
+
+1nf
+-Removing Repeating groups
+-Identification of existance of composite primary key
+Course(Course code(pk), course_name, tutor_id, tutor_name), 
+Students(student_no(pk)**, student_name,date_of_birth, Gender, course_code(fk)**, last_attendance_date)
+
+2nf
+-remove partial dependency
+Course(Course code(pk), course_name, tutor_id, tutor_name)
+student id->student name,date of birth, gender => partial dependency
+student id, course code->last attendance=> full fuctional
+Students(student name(pk), student name, date of birth, gender
+Attendence(student no(fk)**,last attendance date, course code(fk)**)
+
+3nf
+-removing transitives
+Course(course code(pk), course name, tutor id(fk))
+tutor(tutor id(pk), tutor name)
+students(student no(pk),student name, date of birth,gender)
+Attendance(student no(fk)**, last attendance date, student course code(fk)**)
+--------------------------------------------------------------------------------------------------------------
+unf
+student(student id, student name,student address, {module code, module name, {assignment type, grade, status}})
+
+1nf
+student(student id(pk), student name,student address)
+module(module code(pk),student id(fk)**,module name)
+assignment(assignment
+
+
+
+
+
+course name, course leader,credit hour, class type,teacher,time,day,room
+unf
+course
+
+
+
+
+
+create table student_course(
+	student_id number(4) reference student(student_id)
+	module_id number(4) refernece module
