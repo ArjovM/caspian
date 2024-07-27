@@ -4,6 +4,9 @@ import axios from 'axios';
 const NotificationList = () => {
     const [notifications, setNotifications] = useState([]);
 
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;  
+
     useEffect(() => {
         axios.get('/anotifications/')
             .then(response => {
@@ -16,7 +19,9 @@ const NotificationList = () => {
 
     return (
         <div className="table-container">
-            <h1>Notifications</h1>
+           {user && (user.user_type === "2" || user.user_type === "1") && <div><button>Add Notice</button></div>}
+            <h1>Noticeboard
+            </h1>
             <table className="notification-table">
                 <thead>
                     <tr>
