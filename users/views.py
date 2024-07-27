@@ -31,15 +31,6 @@ def get_csrf_token(request):
     return JsonResponse({'token': request.COOKIES['csrftoken']})
 
 
-
-# class RegisterView(APIView):
-#     def post(self, request):
-#         serializer = UserSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
@@ -64,41 +55,6 @@ class LoginView(APIView):
             })
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
     
-
-    
-
-# class RegisterView(APIView):
-#     def post(self, request):
-#         username = request.data.get('username')
-#         email = request.data.get('email')
-#         password = request.data.get('password')
-#         first_name = request.data.get('first_name')
-#         last_name = request.data.get('last_name')
-#         user_type = request.data.get('user_type')
-
-#         try:
-#             user = CustomUser.objects.create(
-#                 username=username,
-#                 email=email,
-#                 first_name=first_name,
-#                 last_name=last_name,
-#                 user_type=user_type
-#             )
-#             user.set_password(password)  # Securely set the user's password
-#             user.save()
-
-#             # If you have a related model based on user_type
-#             if user_type == '2':  # Assuming '2' is for Teacher
-#                 Teacher.objects.create_(teacher=user, name=username, email=email)
-#             elif user_type == '3':  # Assuming '3' is for Student
-#                 Student.objects.create(student=user, name=username, email=email)
-#             elif user_type == '1':  # Assuming '1' is for Admin
-#                 Admin.objects.create(admin=user, name=username, email=email)
-
-#             return JsonResponse({'message': 'User registered successfully'}, status=201)
-#         except Exception as e:
-#             logger.error(f"Error during registration: {str(e)}")
-#             return JsonResponse({'error': 'Something went wrong during registration.'}, status=500)
 
 
 class RegisterView(APIView): 
@@ -129,38 +85,13 @@ class RegisterView(APIView):
                 student = Student.objects.create(name=username, email=email, student_id=user.id)
                 student.save()
 
-            print("regis------3_________________")           
 
             return Response({'message': 'User registered successfully.'}, status=status.HTTP_201_CREATED)
         except Exception as e:
-            # Log the exception (you can log to a file, console, or monitoring system)
             print(f"Error during registration: {e}")
             return Response({'error': 'Something went wrong during registration.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-# class RegisterView(APIView):
-#     def post(self, request):
-#         username = request.data.get('username')
-#         password = request.data.get('password')
-#         email = request.data.get('email')
-#         first_name = request.data.get('first_name')
-#         last_name = request.data.get('last_name')
-#         user_type = request.data.get('user_type')
-#         user = CustomUser.objects.create(username=username, password=password, email=email, first_name=first_name, last_name=last_name, user_type=user_type)
-#         user.teacher.name = username
-#         user.teacher.email = email
-
-#         user.save()
-
-#         return Response({'message': 'User registered successfully.'})
-#         # if user is not None:
-#         #     refresh = RefreshToken.for_user(user)
-#         #     return Response({
-#         #         'refresh': str(refresh),
-#         #         'access': str(refresh.access_token),
-#         #     })
-#         # return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]
@@ -188,20 +119,6 @@ class SubjectList(generics.ListCreateAPIView):
 class SubjectDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
-
-# def index(request):
-
-#     User = User.objects.all()
-
-#     return render(request, "index.html",{'User': User})
-
-# class UserList(generics.ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-# class UserDetail(generics.RetrieveAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
 
 class BookResourcesList(generics.ListCreateAPIView):
     queryset = BookResources.objects.all()

@@ -12,6 +12,8 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import { isLoggedIn, logout } from "../pages/auth";
 import handleLogout from "../pages/Login";
 import RegisterForm from "../pages/Register";
+import Profile from "../components/Profile";
+
 
 export default class App extends Component {
   constructor(props) {
@@ -36,8 +38,21 @@ export default class App extends Component {
             <NavLink className="nav-link" to="/reportpage">
               Reportpage
             </NavLink>
+            <NavLink className="nav-link" to="/profile">
+              My Profile
+            </NavLink>
           </div>
+          {/* <div>
+
+          </div> */}
           <div>
+          {isLoggedIn() ? (
+            <button onClick={logout}>Logout</button>
+          ) : (
+            <NavLink className="nav-link" to="/login">
+              Login
+            </NavLink>
+          )}
           </div>
         </div>
         <Routes>
@@ -49,6 +64,7 @@ export default class App extends Component {
           <Route path="/bookresources" element={<ProtectedRoute element={<BookResources />} />} />
           <Route path="/reportpage" element={<ProtectedRoute element={<Reports />} />} />
           <Route path="/subject/1" element={<ProtectedRoute element={<PhysicsList />} />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
         </Routes>
       </BrowserRouter>
     );

@@ -4,7 +4,6 @@ from .models import Subject
 from .models import StudyResource
 from .models import Notifications
 from .models import BookResources
-from django.contrib.auth import authenticate
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,16 +17,6 @@ class UserSerializer(serializers.ModelSerializer):
             role=validated_data.get('role', 'user')
         )
         return user
-
-# class LoginSerializer(serializers.Serializer):
-#     username = serializers.CharField()
-#     password = serializers.CharField()
-
-#     def validate(self, data):
-#         user = authenticate(**data)
-#         if user and user.is_active:
-#             return user
-#         raise serializers.ValidationError("Invalid credentials")
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
