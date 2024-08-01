@@ -14,56 +14,64 @@ import handleLogout from "../pages/Login";
 import RegisterForm from "../pages/Register";
 import Profile from "../components/Profile";
 
-
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: null,
+    };
+  }
+
+  componentDidMount() {
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+    this.setState({ user });
   }
 
   render() {
+    const { user } = this.state;
+
     return (
       <BrowserRouter>
-        <div className="navbar">
-          <div className="app-logo">Caspian Classroom</div>
-          <div className="nav-items">
-            <NavLink className="nav-link" to="/" exact>
-              Home
-            </NavLink>
-            <NavLink className="nav-link" to="/notifications">
-              Noticeboard
-            </NavLink>
-            <NavLink className="nav-link" to="/bookresources">
-              Ebooks
-            </NavLink>
-            <NavLink className="nav-link" to="/reportpage">
-              Reportpage
-            </NavLink>
-            <NavLink className="nav-link" to="/profile">
-              My Profile
-            </NavLink>
+        {user && (
+          <div className="navbar">
+            <div className="app-logo">Caspian Classroom</div>
+            <div className="nav-items">
+              <NavLink className="nav-link" to="/" exact>
+                Home
+              </NavLink>
+              <NavLink className="nav-link" to="/notifications">
+                Noticeboard
+              </NavLink>
+              <NavLink className="nav-link" to="/bookresources">
+                E-Books
+              </NavLink>
+              <NavLink className="nav-link" to="/reportpage">
+                Report Page
+              </NavLink>
+              {user.user_type === "1" && <NavLink className="nav-link" to="/register">Register User</NavLink>}
+            </div>
+            <div>
+              {isLoggedIn() ? (
+                <NavLink className="nav-link" to="/profile">
+                My Profile
+              </NavLink>
+              ) : (
+                <NavLink className="nav-link" to="/login">
+                  Login
+                </NavLink>
+              )}
+            </div>
           </div>
-          {/* <div>
-
-          </div> */}
-          <div>
-          {isLoggedIn() ? (
-            <button onClick={logout}>Logout</button>
-          ) : (
-            <NavLink className="nav-link" to="/login">
-              Login
-            </NavLink>
-          )}
-          </div>
-        </div>
+        )}
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
-
           <Route path="/" element={<ProtectedRoute element={<HomePage />} />} />
           <Route path="/notifications" element={<ProtectedRoute element={<Notifications />} />} />
           <Route path="/bookresources" element={<ProtectedRoute element={<BookResources />} />} />
           <Route path="/reportpage" element={<ProtectedRoute element={<Reports />} />} />
-          <Route path="/subject/1" element={<ProtectedRoute element={<PhysicsList />} />} />
+          <Route path="/subject" element={<ProtectedRoute element={<PhysicsList />} />} />
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
         </Routes>
       </BrowserRouter>

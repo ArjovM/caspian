@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { logout } from "../pages/auth";
+
 
 export default class Profile extends Component {
   constructor(props) {
@@ -35,6 +37,7 @@ export default class Profile extends Component {
           </h2>
           <h3 className="profile-username">Username: {user.username}</h3>
           <p className="profile-email">Email: {user.email}</p>
+          <button class="add-button" onClick={logout}>Logout</button>
         </div>
       </div>
     );

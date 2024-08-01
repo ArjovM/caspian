@@ -11,6 +11,6 @@ export default class Reports extends Component {
   render() {
     return (
       <><p>new Report
-        </p><RegisterForm /></>
+        </p></>
 )   }
 }

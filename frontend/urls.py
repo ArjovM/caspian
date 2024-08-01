@@ -5,8 +5,8 @@ urlpatterns = [
     path('', index),
     path('notifications', index),
     path('bookresources', index),
-    path('reportpage', index)
-    
+    path('reportpage', index),
+    path('profile', index)
 ]
 
 

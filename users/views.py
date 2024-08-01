@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from.models import Admin, Student, Teacher, CustomUser
 from rest_framework import generics
-from .serializers import UserSerializer
 from .models import Subject
 from .serializers import SubjectSerializer
 from .models import StudyResource
@@ -13,7 +12,6 @@ from .serializers import BookResourcesSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import UserSerializer
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
@@ -91,7 +89,67 @@ class RegisterView(APIView):
             print(f"Error during registration: {e}")
             return Response({'error': 'Something went wrong during registration.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+class NotificationView(APIView):
+    def post(self, request):
+        description = request.data.get('Description')
+        notifier = request.data.get('Notifier')
+        role = request.data.get('Role')
 
+        try:
+            notice = Notifications.objects.create(
+                Description = description,
+                Notifier = notifier,
+                Role = role
+            )
+
+            notice.save()
+
+            return Response({'message': 'Notice has been posted.'}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(f"Error during registration: {e}")
+            return Response({'error': 'Something went wrong during posting notice.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class BookResourcesView(APIView):
+    def post(self, request):
+        title = request.data.get('title')
+        author = request.data.get('author')
+        file = request.data.get('file')
+        teacherName = request.data.get('teacherName')
+        try:
+            ebook = BookResources.objects.create(
+                title = title,
+                author = author,
+                file = file,
+                teacherName = teacherName
+            )
+
+            ebook.save()
+
+            return Response({'message': 'Ebook has been added.'}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(f"Error during registration: {e}")
+            return Response({'error': 'Something went wrong during adding the ebook.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class StudyResourceView(APIView):
+    def post(self, request):
+        resourceInfo = request.data.get('resourceInfo')
+        subjectID = request.data.get('subjectID')
+        resource = request.data.get('resource')
+        
+        subject_item = Subject.objects.get(SubjectID=subjectID)
+
+        try:
+            resource = StudyResource.objects.create(
+                resourceInfo = resourceInfo,
+                subjectID = subject_item,
+                resource = resource
+            )
+            resource.save()
+
+            return Response({'message': 'Notice has been posted.'}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(f"Error during registration: {e}")
+            return Response({'error': 'Something went wrong during posting notice.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class ProtectedView(APIView):
     permission_classes = [IsAuthenticated]

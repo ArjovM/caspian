@@ -67,7 +67,8 @@ class StudyResource(models.Model):
 class Notifications(models.Model):
     NotificationID = models.AutoField(primary_key=True)
     Description = models.TextField()
-    TeacherID = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    Notifier = models.CharField(default="admin", max_length=255)
+    Role= models.CharField(default=1, max_length=20)
 
 class BookResources(models.Model):
     ebooksID = models.AutoField(primary_key=True)

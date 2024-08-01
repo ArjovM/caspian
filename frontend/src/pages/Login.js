@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {  logout, isLoggedIn } from './auth';
+import { logout, isLoggedIn } from './auth';
 import axios from 'axios';
 
 
@@ -32,7 +32,7 @@ const LoginForm = () => {
     try {
       await login(username, password);
       setLoggedIn(true);
-      navigate('/');  // Redirect to home page after login
+      navigate('/');
     } catch (err) {
       setError('Invalid credentials');
     }
@@ -41,7 +41,7 @@ const LoginForm = () => {
   const handleLogout = () => {
     logout();
     setLoggedIn(false);
-    navigate('/login');  // Redirect to login page after logout
+    navigate('/login');
   };
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const LoginForm = () => {
         </div>
       ) : (
         <div className="login-form">
-          <h1>Login to visit the Site</h1>
+          <h1>Login</h1>
           <form onSubmit={handleLogin}>
             <input
               type="text"

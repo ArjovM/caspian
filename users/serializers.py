@@ -21,7 +21,7 @@ class UserSerializer(serializers.ModelSerializer):
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notifications
-        fields = ['NotificationID', 'Description', 'TeacherID']
+        fields = ['NotificationID', 'Description', 'Notifier', 'Role']
 
 class StudyResourceSerializer(serializers.ModelSerializer):
     class Meta:

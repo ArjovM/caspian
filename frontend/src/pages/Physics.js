@@ -4,9 +4,6 @@ import axios from 'axios';
 const PhysicsList = () => {
     const [resourceData, setResourceData] = useState([]);
     const [subjectData, setSubjectData] = useState([]);
-    const storedUser = localStorage.getItem('user');
-    const user = storedUser ? JSON.parse(storedUser) : null;
-
 
     useEffect(() => {
         axios.get('/subject/')  // Adjusted endpoint
@@ -29,29 +26,27 @@ const PhysicsList = () => {
     }, []);
 
     return (
-        <div className="table-container">
-            {user && (user.user_type === "2" || user.user_type === "1") && <div><button>Add Study Resource</button></div>}
-            <h1>Study Resources</h1>
-            <table className="physics-table">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>File</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    {resourceData.filter((data)=>data.subjectID === 2).map(resource => (
-                        <tr key={resource.studyResourceId}>
-                            
-                            <td>{resource.resourceInfo}</td>
-                            <td><a href={resource.resource}>Download</a></td>
-                        
+        <>
+            <div className="table-container">
+                <h1>Study Resources</h1>
+                <table className="physics-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>File</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {resourceData.filter((data) => data.subjectID === 1).map(resource => (
+                            <tr key={resource.studyResourceId}>
+                                <td>{resource.resourceInfo}</td>
+                                <td><a href={resource.resource}>Download</a></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 };
 
