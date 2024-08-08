@@ -21,7 +21,7 @@ const Modal = ({ isOpen, onClose, children }) => {
 			<div
 				style={{
 					background: "white",
-					height: 300,
+					height: 325,
 					width: 400,
 					margin: "auto",
 					padding: "2%",

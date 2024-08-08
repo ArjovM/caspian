@@ -87,12 +87,15 @@ const HomePage = () => {
 
   return (
     <>
-      <div className="grid-container">
-        {user && user.user_type === "2" && <div className="button-group"><button class="add-resource-button" onClick={handleOpen}>Add Study Resource</button></div>}
-      <div className="grid-items">
-        {renderSubjectsInGrid()}
+      <div className="home-button">
+        {user && user.user_type === "2" && <button class="add-resource-button" onClick={handleOpen}>Add Study Resource +
+        </button>}
       </div>
-    </div >
+      <div className="grid-container">
+        <div className="grid-items">
+          {renderSubjectsInGrid()}
+        </div>
+      </div >
       <Modal isOpen={open}>
         <>
           <h1>Add a Study Resource</h1>
@@ -130,10 +133,8 @@ const HomePage = () => {
               <option value="11">Economics</option>
               <option value="12">Hotel Management</option>
             </select>
-            <div className="button-group">
               <button type="submit" class="submit-button">Submit</button>
               <button onClick={handleClose} class="close-button">Close</button>
-            </div>
           </form>
         </>
       </Modal>

@@ -20,13 +20,17 @@ class Admin(models.Model):
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=50)  
 
-
-class Teacher(models.Model):
+class Grade(models.Model):
     id = models.AutoField(primary_key=True)
-    teacher = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=50)
+    grade = models.CharField(max_length=100)
+
+class Term(models.Model):
+    id = models.AutoField(primary_key=True)
+    Term = models.CharField(max_length=100)
+
+class Course(models.Model):
+    id = models.AutoField(primary_key=True)
+    course_name = models.CharField(max_length=255)
 
 class Student(models.Model):
     id = models.AutoField(primary_key=True)
@@ -34,6 +38,16 @@ class Student(models.Model):
     name = models.CharField(max_length=100, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(max_length=50)
+    grade = models.ForeignKey(Grade, on_delete=models.CASCADE, default=1)   
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
+
+class Teacher(models.Model):
+    id = models.AutoField(primary_key=True)
+    teacher = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
+    password = models.CharField(max_length=50)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
 
 class Classes(models.Model):
     ClassID = models.AutoField(primary_key=True)
@@ -41,22 +55,11 @@ class Classes(models.Model):
     ClassTeacherID = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     ClassStudentID = models.ForeignKey(Student, on_delete=models.CASCADE)
 
-class Grade(models.Model):
-    GradeID = models.AutoField(primary_key=True)
-    GradeValue = models.CharField(max_length=100)
-    Description = models.CharField(max_length=100)
-
-class Enrollment(models.Model):
-    EnrollmentID = models.AutoField(primary_key=True)
-    ClassID = models.ForeignKey(Classes, on_delete=models.CASCADE)
-    StudentID = models.ForeignKey(Student, on_delete=models.CASCADE)
-    GradeID = models.ForeignKey(Grade, on_delete=models.CASCADE)
-    EnrollmentDate = models.DateField()
-
 class Subject(models.Model):
     SubjectID = models.AutoField(primary_key=True)
     SubjectName = models.CharField(max_length=100, unique=True)
-    GradeID = models.ForeignKey(Grade, on_delete=models.CASCADE)
+    grade = models.ForeignKey(Grade, on_delete=models.CASCADE, default=1)   
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, default=1)
 
 class StudyResource(models.Model):
     studyResourceId = models.AutoField(primary_key=True)
@@ -76,6 +79,15 @@ class BookResources(models.Model):
     author = models.CharField(max_length=255)
     file = models.FileField(upload_to='files/')
     teacherName = models.CharField(max_length=255)
+
+class ReportCard(models.Model):
+    report_id = models.AutoField(primary_key=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    grade = models.ForeignKey(Grade, on_delete=models.CASCADE, default=1)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, default=1)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE, default=1)
+    marks = models.IntegerField(default=0)
 
 @receiver(post_save,sender=CustomUser)
 def create_user_profile(sender,instance,created,**kwargs):

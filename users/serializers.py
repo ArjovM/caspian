@@ -4,6 +4,9 @@ from .models import Subject
 from .models import StudyResource
 from .models import Notifications
 from .models import BookResources
+from .models import Course
+from .models import Grade
+from .models import ReportCard, Student, Term
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,6 +34,31 @@ class StudyResourceSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
+        fields = '__all__'
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReportCard
+        fields = '__all__'
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = '__all__'
+
+class TermSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Term
+        fields = '__all__'
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+class GradeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Grade
         fields = '__all__'
 
 class BookResourcesSerializer(serializers.ModelSerializer):

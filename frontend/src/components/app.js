@@ -3,7 +3,6 @@ import { render } from "react-dom";
 import { BrowserRouter, Route, Routes, NavLink } from "react-router-dom";
 import '../../static/css/index.css';
 import Notifications from "./NotificationPage";
-import Reports from "./ReportPage";
 import HomePage from "./HomePage";
 import PhysicsList from "../pages/Physics";
 import BookResources from "./Ebooks";
@@ -13,6 +12,9 @@ import { isLoggedIn, logout } from "../pages/auth";
 import handleLogout from "../pages/Login";
 import RegisterForm from "../pages/Register";
 import Profile from "../components/Profile";
+import HomePage2 from "./HomePage2";
+import Grade from "./Grade";
+import ReportCard from "./ReportCard";
 
 export default class App extends Component {
   constructor(props) {
@@ -46,9 +48,7 @@ export default class App extends Component {
               <NavLink className="nav-link" to="/bookresources">
                 E-Books
               </NavLink>
-              <NavLink className="nav-link" to="/reportpage">
-                Report Page
-              </NavLink>
+              {user && (user.user_type === "3" || user.user_type === "1")  && <NavLink className="nav-link" to="/reportpage">Report Page</NavLink>}
               {user.user_type === "1" && <NavLink className="nav-link" to="/register">Register User</NavLink>}
             </div>
             <div>
@@ -67,12 +67,14 @@ export default class App extends Component {
         <Routes>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/" element={<ProtectedRoute element={<HomePage />} />} />
+          <Route path="/" element={<ProtectedRoute element={<HomePage2 />} />} />
           <Route path="/notifications" element={<ProtectedRoute element={<Notifications />} />} />
           <Route path="/bookresources" element={<ProtectedRoute element={<BookResources />} />} />
-          <Route path="/reportpage" element={<ProtectedRoute element={<Reports />} />} />
+          <Route path="/reportpage" element={<ProtectedRoute element={<ReportCard />} />} />
           <Route path="/subject" element={<ProtectedRoute element={<PhysicsList />} />} />
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
+          <Route path="/:slug/grade/" element={<ProtectedRoute element={<Grade />} />} />
+          <Route path="/:slug/subjects" element={<ProtectedRoute element={<HomePage />} />} />
         </Routes>
       </BrowserRouter>
     );

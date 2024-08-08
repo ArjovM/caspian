@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Modal from './Modal'
+import Modal from './Modal';
+import saveAs from 'file-saver';
 
 const BookResourcesList = () => {
     const [bookResourcesData, setBookResourcesData] = useState([]);
@@ -36,13 +37,9 @@ const BookResourcesList = () => {
 
     const ebook = async (title, author, file, teacherName) => {
         try {
-            console.log("front.........................")
-
             const response = await axios.post(`${API_URL}addebooks/`,
                 { title, author, file, teacherName },
             );
-            console.log("front 2.........................")
-
             return response.data
         } catch (error) {
             console.error('Ebook error:', error.response ? error.response.data : error);
@@ -69,6 +66,42 @@ const BookResourcesList = () => {
             height: '400px',
         },
     };
+
+    const downloadPdf = async () => {
+        try {
+            const response = await axios.get(
+                "http://localhost:8000/bookresources/",
+                {
+                    responseType: "blob",
+                }
+            );
+
+            // Create a Blob from the response data
+            const pdfBlob = new Blob([response.data], { type: "document" });
+
+            // Create a temporary URL for the Blob
+            const url = window.URL.createObjectURL(pdfBlob);
+
+            // Create a temporary <a> element to trigger the download
+            const tempLink = document.createElement("a");
+            tempLink.href = url;
+            tempLink.setAttribute(
+                "download",
+                `bill`
+            ); // Set the desired filename for the downloaded file
+
+            // Append the <a> element to the body and click it to trigger the download
+            document.body.appendChild(tempLink);
+            tempLink.click();
+
+            // Clean up the temporary elements and URL
+            document.body.removeChild(tempLink);
+            window.URL.revokeObjectURL(url);
+        } catch (error) {
+            console.error("Error downloading PDF:", error);
+        }
+    };
+
 
 
     useEffect(() => {
@@ -100,7 +133,8 @@ const BookResourcesList = () => {
                                 <td>{bookResources.title}</td>
                                 <td>{bookResources.author}</td>
                                 <td>{bookResources.teacherName}</td>
-                                <td><a href={bookResources.file}>Download File</a></td>
+                                <button onClick={downloadPdf}>Download</button>
+                                {/* <td><a href={bookResources.file}>Download File</a></td> */}
                             </tr>
                         ))}
                     </tbody>

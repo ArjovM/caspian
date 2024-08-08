@@ -21,10 +21,10 @@ const getCookie = (name) => {
 const csrftoken = getCookie('csrftoken');
 
 
-const register = async (username, password, email, first_name, last_name, user_type) => {
+const register = async (username, password, email, first_name, last_name, user_type, grade, faculty) => {
     try {
         const response = await axios.post(`${API_URL}register/`, 
-            { username, password, email, first_name, last_name, user_type },
+            { username, password, email, first_name, last_name, user_type, grade, faculty },
             { headers: { 'X-CSRFToken': csrftoken } }
         );
         return response.data;

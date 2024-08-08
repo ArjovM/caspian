@@ -54,10 +54,11 @@ body {
   text-decoration: none;
   transition: background-color 0.3s ease;
   font-weight: 400; /* Use regular Roboto font for links */
+  border-radius: 5px;
 }
 
 .nav-link:hover {
-  background-color: #2168c5;
+  background-color: darkblue;
 }
 
 /* Responsive adjustments */
@@ -315,6 +316,31 @@ body {
   margin-top: 10px;
 }
 
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* Adjust padding-right to accommodate the icon */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.icon-container {
+  position: absolute;
+  right: 10px; /* Position the icon inside the input field on the right */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer; /* Add cursor pointer to indicate clickability */
+}
+
+.icon {
+  display: inline-block;
+}
+
 /* BookResourcesList */
 .book-resources-container {
   padding: 20px;
@@ -475,13 +501,12 @@ body {
   font-size: 15px;
   cursor: pointer;
   border-radius: 5px; /* Rounded edges */
-  align-self: left;
 }
 
 .add-resource-button:hover {
-    background-color: #1877f2;
-    color: white;
-  }
+  background-color: #1877f2;
+  color: white;
+}
 
 /* Optional: Add hover effect */
 .add-button:hover {
@@ -491,7 +516,11 @@ body {
 
 .button-group {
   padding: 15px;
-  align-items: right;
+}
+
+.home-button {
+  padding: 35px 0px 0px 20px;
+  align-items: left;
 }
 
 .noticeboard-container {
@@ -566,4 +595,153 @@ textarea {
   resize: none;
   height: 95px;
   font-family: "Roboto", sans-serif;
+}
+
+/* Password toggle*/
+
+.password-toggle-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-toggle-icon i {
+  font-size: 18px;
+  line-height: 1;
+  color: #333;
+  transition: color 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.password-toggle-icon i:hover {
+  color: #000;
+}
+
+/* ReportCard */
+.report-card-container {
+  margin: 20px;
+}
+
+.report-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.report-card-header {
+  margin-bottom: 20px;
+}
+
+.report-summary {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.report-summary p {
+  margin: 5px 0;
+}
+
+.report-card-body table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.report-card-body th,
+.report-card-body td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.report-card-body th {
+  background-color: #f2f2f2;
+}
+
+/* Add report */
+
+.book-resources-container {
+  margin: 20px;
+}
+
+.add-button {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* .submit-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.close-button {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+} */
+
+/* .submit-button:hover {
+  background-color: #45a049;
+}
+
+.close-button:hover {
+  background-color: #d32f2f;
+} */
+
+select {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  margin-bottom: 20px;
+}
+
+.modal-content {
+  height: 400px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
 }

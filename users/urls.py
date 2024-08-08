@@ -4,7 +4,7 @@ from .views import StudyResourceList, StudyResourceDetail, StudyResourceView
 from django.urls import path
 from .views import NotificationList,  NotificationView
 from .views import BookResourcesList, BookResourcesDetail, BookResourcesView
-from .views import LoginView, RegisterView
+from .views import LoginView, RegisterView, CourseView, GradeView, ReportView, AddReportView, StudentView, TermView
 
 urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
@@ -20,4 +20,10 @@ urlpatterns = [
     path('bookresources/<int:pk>/', BookResourcesDetail.as_view(), name='ebooks-detail'),
     path('addebooks/', BookResourcesView.as_view(), name='ebooks-add'),
     path('addresource/', StudyResourceView.as_view(), name='resource-add'),
+    path('course/', CourseView.as_view(), name='subject-list'),
+    path('grade/', GradeView.as_view(), name='grade-list'),
+    path('report/', ReportView.as_view(), name='report-list'),
+    path('addreport/', AddReportView.as_view(), name='report-add'),
+    path('students/', StudentView.as_view(), name='student-list'),
+    path('term/', TermView.as_view(), name='term-list'),
 ]
